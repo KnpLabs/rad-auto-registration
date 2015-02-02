@@ -18,7 +18,7 @@ class AppKernel
     {
         $bundles = array(
             //...
-            new Knp\Rad\User\Bundle\AutoRegistrationBundle(),
+            new Knp\Rad\AutoRegistration\Bundle\AutoRegistrationBundle(),
             //...
         );
 
