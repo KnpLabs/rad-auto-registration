@@ -1,0 +1,3 @@
+services:
+    knp_rad_auto_registration.dependency_injection_service_name_generator.default_servide_name_generator:
+        class: Knp\Rad\AutoRegistration\DependencyInjection\ServiceNameGenerator\DefaultServiceNameGenerator

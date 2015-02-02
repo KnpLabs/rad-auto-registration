@@ -1,0 +1,33 @@
+{
+    "name": "knplabs/rad-auto-registration",
+    "description": "Auto register some sommun services",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KNP Labs",
+            "email": "hello@knplabs.com"
+        }
+    ],
+    "require": {
+        "doctrine/inflector": "~1.0",
+        "symfony/config": "~2.4",
+        "symfony/dependency-injection": "~2.4",
+        "symfony/http-kernel": "~2.4"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Knp\\Rad\\AutoRegistration": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
