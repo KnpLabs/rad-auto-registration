@@ -1,6 +1,6 @@
 {
     "name": "knplabs/rad-auto-registration",
-    "description": "Auto register some sommun services",
+    "description": "Auto register some common services",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,9 @@
         }
     ],
     "require": {
+        "doctrine/dbal": "~2.0",
         "doctrine/inflector": "~1.0",
+        "psr/log": "~1.0",
         "symfony/config": "~2.4",
         "symfony/dependency-injection": "~2.4",
         "symfony/http-kernel": "~2.4"
