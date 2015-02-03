@@ -2,8 +2,10 @@
 
 namespace Knp\Rad\AutoRegistration\DependencyInjection\Compiler;
 
+use Doctrine\DBAL\DBALException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 
 class DoctrineObjectRepositoryPass implements CompilerPassInterface
@@ -29,7 +31,13 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
         $metadata      = [];
 
         foreach ($managers as $name => $manager) {
-            $metadata = array_merge($metadata, $manager->getMetadataFactory()->getAllMetadata());
+            try {
+                $metadata = array_merge($metadata, $manager->getMetadataFactory()->getAllMetadata());
+            } catch (DBALException $ex) {
+                if (null !== $logger = $container->get('monolog.logger.doctrine', ContainerInterface::NULL_ON_INVALID_REFERENCE)) {
+                    $logger->addNotice($ex->getMessage());
+                }
+            }
         }
 
         foreach ($metadata as $entity) {
