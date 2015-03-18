@@ -35,6 +35,8 @@ class DoctrineObjectRepositoryPassSpec extends ObjectBehavior
 
         $meta1->getName()->willReturn('App\Entity\User');
         $meta2->getName()->willReturn('Api\Model\Operator');
+
+        $this->beConstructedWith('doctrine', 'doctrine');
     }
 
     function it_is_initializable()
@@ -47,7 +49,7 @@ class DoctrineObjectRepositoryPassSpec extends ObjectBehavior
         $container->has('doctrine')->willReturn(false);
         $container->setDefinition(Argument::cetera())->shouldNotBeCalled();
 
-        $this->process($container);
+        $this->shouldThrow('\RuntimeException')->during('process', [$container]);
     }
 
     function it_generates_definitions($container)

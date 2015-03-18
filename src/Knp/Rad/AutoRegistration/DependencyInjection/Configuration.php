@@ -17,7 +17,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('knp_rad_auto_registration.dependency_injection_service_name_generator.default_servide_name_generator')
                 ->end()
                 ->booleanNode('doctrine')
-                    ->defaultTrue()
+                    ->defaultFalse()
+                ->end()
+                ->booleanNode('doctrine_odm')
+                    ->defaultFalse()
                 ->end()
             ->end()
             ;

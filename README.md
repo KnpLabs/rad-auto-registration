@@ -32,11 +32,12 @@ class AppKernel
 #Usages
 
 ##Doctrine repositories auto-registration
-Just activate `doctrine' into your configuration.
+Just activate `doctrine' (or `doctrine_odm` depending of your needs) into your configuration.
 
 ```yaml
 knp_rad_auto_registration:
     doctrine: true
+    doctrine_odm: true
 ```
 
 Now all repositories are auto-registred.
@@ -45,3 +46,4 @@ Now all repositories are auto-registred.
 | ------------------------------------- | ------------------------------------------------ |
 | MyProjectBundle\Entity\User           | my_project_bundle.entity.user_repository         |
 | TheOtherBundle\Entity\Model\Address   | the_other_bundle.model.user.address_repository   |
+| MyProjectBunde\Document\User          | my_project_bundle.document.user_repository       |

@@ -15,7 +15,13 @@ class AutoRegistrationBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new DoctrineObjectRepositoryPass, PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass(
+            new DoctrineObjectRepositoryPass('doctrine', 'doctrine'), PassConfig::TYPE_OPTIMIZE
+        );
+
+        $container->addCompilerPass(
+            new DoctrineObjectRepositoryPass('doctrine_odm', 'doctrine_mongodb'), PassConfig::TYPE_OPTIMIZE
+        );
     }
 
     /**
