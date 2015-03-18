@@ -13,17 +13,32 @@ class Configuration implements ConfigurationInterface
         $builder
             ->root('knp_rad_auto_registration')
             ->children()
-                ->scalarNode('service_name_generator')
-                    ->defaultValue('knp_rad_auto_registration.dependency_injection_service_name_generator.default_servide_name_generator')
+                ->arrayNode('services')
+                    ->children()
+                        ->booleanNode('doctrine')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('doctrine_mongodb')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('doctrine_couchdb')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('form_type')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('form_type_extension')
+                            ->defaultFalse()
+                        ->end()
+                    ->end()
                 ->end()
-                ->booleanNode('doctrine')
-                    ->defaultFalse()
-                ->end()
-                ->booleanNode('doctrine_odm')
-                    ->defaultFalse()
+                ->arrayNode('bundles')
+                    ->prototype('scalar')->end()
+                    ->defaultValue([])
                 ->end()
             ->end()
-            ;
+        ;
+
         return $builder;
     }
 }

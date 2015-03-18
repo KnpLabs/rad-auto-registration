@@ -17,6 +17,8 @@
         "symfony/http-kernel": "~2.4"
     },
     "require-dev": {
+        "bossa/phpspec2-expect": "~1.0.0",
+        "knplabs/phpspec-welldone-extension": "dev-master@dev",
         "phpspec/phpspec": "~2.1"
     },
     "autoload": {
@@ -29,7 +31,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }

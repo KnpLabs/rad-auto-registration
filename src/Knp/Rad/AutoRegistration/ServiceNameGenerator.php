@@ -1,11 +1,11 @@
 <?php
 
-namespace Knp\Rad\AutoRegistration\DependencyInjection;
+namespace Knp\Rad\AutoRegistration;
 
 interface ServiceNameGenerator
 {
     /**
-     * @param string $name
+     * @param string $classname
      *
      * @return string
      */
