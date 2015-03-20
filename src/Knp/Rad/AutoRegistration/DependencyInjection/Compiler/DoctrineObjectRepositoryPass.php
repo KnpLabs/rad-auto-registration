@@ -14,22 +14,39 @@ use Symfony\Component\DependencyInjection\Definition;
 class DoctrineObjectRepositoryPass implements CompilerPassInterface
 {
     /**
+     * @var string
+     */
+    private $configItem;
+
+    /**
+     * @var string
+     */
+    private $serviceName;
+
+
+    public function __construct($configItem, $serviceName)
+    {
+        $this->configItem  = $configItem;
+        $this->serviceName = $serviceName;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('doctrine')) {
+        $configuration = $container->getParameter('knp_rad_auto_registration.configuration');
+
+        if (false === $configuration[$this->configItem]) {
             return;
         }
 
-        $configuration = $container->getParameter('knp_rad_auto_registration.configuration');
-
-        if (false === $configuration['doctrine']) {
-            return;
+        if (false === $container->has($this->serviceName)) {
+            throw new \RuntimeException(sprintf('Service "%s" is unavailable.', $this->serviceName));
         }
 
         $generator = $container->get($configuration['service_name_generator']);
-        $doctrine  = $container->get('doctrine');
+        $doctrine  = $container->get($this->serviceName);
         $metadata  = $this->getAllMetadata($doctrine, $container->get('monolog.logger.doctrine', ContainerInterface::NULL_ON_INVALID_REFERENCE));
         $definitions = $this->buildDefinitions($metadata, $container, $generator);
 
@@ -42,7 +59,7 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
      * @param ManagerRegistry $doctrine
      * @param LoggerInterface $logger
      *
-     * @return Doctrine\Common\Persistence\Mapping\ClassMetadata[]
+     * @return \Doctrine\Common\Persistence\Mapping\ClassMetadata[]
      */
     private function getAllMetadata(ManagerRegistry $doctrine, LoggerInterface $logger = null)
     {
@@ -75,11 +92,6 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
             $classname  = $entity->getName();
             $repository = sprintf('%sRepository', $classname);
             $service    = $generator->generateFromClassname($repository);
-            $definition = (new Definition('Doctrine\Common\Persistence\ObjectRepository'))
-                ->setFactoryService('doctrine')
-                ->setFactoryMethod('getRepository')
-                ->addArgument($classname)
-            ;
 
             if (true === $container->has($service)) {
                 continue;
@@ -89,7 +101,11 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
                 continue;
             }
 
-            $definitions[$service] = $definition;
+            $definitions[$service] = (new Definition('Doctrine\Common\Persistence\ObjectRepository'))
+                ->setFactoryService($this->serviceName)
+                ->setFactoryMethod('getRepository')
+                ->addArgument($classname)
+            ;
         }
 
         return $definitions;
