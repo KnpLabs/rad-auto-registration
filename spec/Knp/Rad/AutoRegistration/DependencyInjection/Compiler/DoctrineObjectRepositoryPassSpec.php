@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DoctrineObjectRepositoryPassSpec extends ObjectBehavior
 {
-    function let(ContainerBuilder $container, ManagerRegistry $doctrine, ObjectManager $em1, ObjectManager $em2, ClassMetadataFactory $mf1, ClassMetadataFactory $mf2, ClassMetadata $meta1, ClassMetadata $meta2)
+    function let(ContainerBuilder $container, ManagerRegistry $doctrine, ObjectManager $em1, ObjectManager $em2, ClassMetadataFactory $mf1, ClassMetadataFactory $mf2, ClassMetadata $meta1, ClassMetadata $meta2, \ReflectionClass $reflClass1, \ReflectionClass $reflClass2)
     {
         $generator = new DefaultServiceNameGenerator;
 
@@ -21,7 +21,8 @@ class DoctrineObjectRepositoryPassSpec extends ObjectBehavior
         $container->get('doctrine')->willReturn($doctrine);
         $container->get('generator')->willReturn($generator);
         $container->get('monolog.logger.doctrine', Argument::any())->willReturn(null);
-        $container->getParameter('knp_rad_auto_registration.configuration')->willReturn(['service_name_generator' => 'generator', 'doctrine' => true]);
+        $container->getParameter('knp_rad_auto_registration.bundles')->willReturn(['AppBundle' => 'App', 'ApiBundle' => 'Api']);
+        $container->getParameter('knp_rad_auto_registration.configuration')->willReturn(['service_name_generator' => 'generator', 'doctrine' => true, 'doctrine_odm' => false]);
         $container->has('app.entity.user_repository')->willReturn(false);
         $container->hasAlias('app.entity.user_repository')->willReturn(false);
         $container->has('api.model.operator_repository')->willReturn(false);
@@ -32,6 +33,12 @@ class DoctrineObjectRepositoryPassSpec extends ObjectBehavior
         $em2->getMetadataFactory()->willReturn($mf2);
         $mf1->getAllMetadata()->willReturn([$meta1]);
         $mf2->getAllMetadata()->willReturn([$meta2]);
+
+        $meta1->getReflectionClass()->willReturn($reflClass1);
+        $meta2->getReflectionClass()->willReturn($reflClass2);
+
+        $reflClass1->getNamespaceName()->willReturn('App\Entity');
+        $reflClass2->getNamespaceName()->willReturn('Api\Model');
 
         $meta1->getName()->willReturn('App\Entity\User');
         $meta2->getName()->willReturn('Api\Model\Operator');

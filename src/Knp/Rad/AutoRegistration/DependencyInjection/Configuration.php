@@ -22,6 +22,11 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('doctrine_odm')
                     ->defaultFalse()
                 ->end()
+                ->arrayNode('bundles')
+                    ->prototype('scalar')->end()
+                    ->defaultValue([])
+                    ->treatNullLike([])
+                ->end()
             ->end()
             ;
         return $builder;

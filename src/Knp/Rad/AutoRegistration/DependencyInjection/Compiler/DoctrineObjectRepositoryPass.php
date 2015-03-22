@@ -3,6 +3,7 @@
 namespace Knp\Rad\AutoRegistration\DependencyInjection\Compiler;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\DBAL\DBALException;
 use Knp\Rad\AutoRegistration\DependencyInjection\ServiceNameGenerator;
 use Psr\Log\LoggerInterface;
@@ -35,9 +36,12 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $bundles       = $container->getParameter('knp_rad_auto_registration.bundles');
         $configuration = $container->getParameter('knp_rad_auto_registration.configuration');
 
-        if (false === $configuration[$this->configItem]) {
+        $configItem = $this->configItem;
+
+        if (false === $configuration[$configItem]) {
             return;
         }
 
@@ -48,7 +52,7 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
         $generator = $container->get($configuration['service_name_generator']);
         $doctrine  = $container->get($this->serviceName);
         $metadata  = $this->getAllMetadata($doctrine, $container->get('monolog.logger.doctrine', ContainerInterface::NULL_ON_INVALID_REFERENCE));
-        $definitions = $this->buildDefinitions($metadata, $container, $generator);
+        $definitions = $this->buildDefinitions($this->filterMetadata($metadata, $bundles), $container, $generator);
 
         foreach ($definitions as $id => $definition) {
             $container->setDefinition($id, $definition);
@@ -59,7 +63,7 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
      * @param ManagerRegistry $doctrine
      * @param LoggerInterface $logger
      *
-     * @return \Doctrine\Common\Persistence\Mapping\ClassMetadata[]
+     * @return ClassMetadata[]
      */
     private function getAllMetadata(ManagerRegistry $doctrine, LoggerInterface $logger = null)
     {
@@ -75,6 +79,24 @@ class DoctrineObjectRepositoryPass implements CompilerPassInterface
         }
 
         return $metadata;
+    }
+
+    /**
+     * @param ClassMetadata[] $metadata
+     * @param array $bundles
+     *
+     * @return ClassMetadata[]
+     */
+    private function filterMetadata(array $metadata, array $bundles) {
+        return array_filter($metadata, function (ClassMetadata $metadata) use ($bundles) {
+            $reflClass = $metadata->getReflectionClass();
+
+            $matches = [];
+
+            preg_match('#^(?P<bundleNs>.*)\\\(?:Entity|Model|Document)$#', $reflClass->getNamespaceName(), $matches);
+
+            return isset($matches['bundleNs']) && in_array($matches['bundleNs'], $bundles);
+        });
     }
 
     /**
