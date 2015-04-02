@@ -8,12 +8,25 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class DefinitionBuilderActivationPass implements CompilerPassInterface
 {
     /**
+     * @var string[]
+     */
+    private $sections;
+
+    /**
+     * @param string[] $sections
+     */
+    public function __construct(array $sections)
+    {
+        $this->sections = $sections;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
         $configuration = $container->getParameter('knp_rad_auto_registration.configuration');
-        $services      = $configuration['services'];
+        $enable        = $configuration['enable'];
         $generator     = $container
             ->get('knp_rad_auto_registration.service_name_generator.bundle_service_name_generator')
         ;
@@ -25,7 +38,11 @@ class DefinitionBuilderActivationPass implements CompilerPassInterface
                 continue;
             }
 
-            if (false === $services[$builder->getName()]) {
+            if (false === in_array($builder->getName(), $this->sections)) {
+                continue;
+            }
+
+            if (false === $enable[$builder->getName()]) {
                 continue;
             }
 
