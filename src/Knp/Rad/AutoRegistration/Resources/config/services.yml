@@ -1,3 +1,85 @@
+parameters:
+    knp_rad_auto_registration.configuration: []
+
 services:
-    knp_rad_auto_registration.dependency_injection_service_name_generator.default_servide_name_generator:
-        class: Knp\Rad\AutoRegistration\DependencyInjection\ServiceNameGenerator\DefaultServiceNameGenerator
+    knp_rad_auto_registration.definition_builder.doctrine_object_repository_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\DoctrineObjectRepositoryBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @?doctrine
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
+    knp_rad_auto_registration.definition_builder.doctrine_mongodb_object_repository_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\DoctrineObjectRepositoryBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @?doctrine_mongodb
+            - doctrine_mongodb
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
+    knp_rad_auto_registration.definition_builder.doctrine_couchdb_object_repository_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\DoctrineObjectRepositoryBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @?doctrine_couchdb
+            - doctrine_couchdb
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
+    knp_rad_auto_registration.definition_builder.form_extension_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\FormExtensionBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @knp_rad_auto_registration.reflection.class_analyzer
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
+    knp_rad_auto_registration.definition_builder.form_type_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\FormTypeBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @knp_rad_auto_registration.reflection.class_analyzer
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
+    knp_rad_auto_registration.finder.bundle_finder:
+        class: Knp\Rad\AutoRegistration\Finder\BundleFinder
+        public: false
+
+    knp_rad_auto_registration.kernel.kernel_wrapper:
+        class: Knp\Rad\AutoRegistration\Kernel\KernelWrapper
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel
+            - %knp_rad_auto_registration.configuration%
+
+    knp_rad_auto_registration.kernel:
+        class: Symfony\Component\HttpKernel\KernelInterface
+        synthetic: true
+
+    knp_rad_auto_registration.reflection.class_analyzer:
+        class: Knp\Rad\AutoRegistration\Reflection\ClassAnalyzer
+        public: false
+
+    knp_rad_auto_registration.service_name_generator.bundle_service_name_generator:
+        class: Knp\Rad\AutoRegistration\ServiceNameGenerator\BundleServiceNameGenerator
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.service_name_generator.default_service_name_generator
+
+    knp_rad_auto_registration.service_name_generator.default_service_name_generator:
+        class: Knp\Rad\AutoRegistration\ServiceNameGenerator\DefaultServiceNameGenerator
+        public: false

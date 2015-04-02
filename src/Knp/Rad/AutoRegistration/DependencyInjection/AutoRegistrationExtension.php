@@ -2,7 +2,6 @@
 
 namespace Knp\Rad\AutoRegistration\DependencyInjection;
 
-use Knp\Rad\AutoRegistration\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -15,7 +14,7 @@ class AutoRegistrationExtension extends Extension
      */
     public function load(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration;
+        $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $config);
         $loader        = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 

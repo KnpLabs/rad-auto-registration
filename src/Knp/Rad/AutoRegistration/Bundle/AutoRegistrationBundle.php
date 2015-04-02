@@ -3,24 +3,37 @@
 namespace Knp\Rad\AutoRegistration\Bundle;
 
 use Knp\Rad\AutoRegistration\DependencyInjection\AutoRegistrationExtension;
-use Knp\Rad\AutoRegistration\DependencyInjection\Compiler\DoctrineObjectRepositoryPass;
+use Knp\Rad\AutoRegistration\DependencyInjection\Compiler\DefinitionBuilderActivationPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class AutoRegistrationBundle extends Bundle
 {
+    /**
+     * @var KernelInterface
+     */
+    private $kernel;
+
+    /**
+     * @param KernelInterface $kernel
+     */
+    public function __construct(KernelInterface $kernel)
+    {
+        $this->kernel = $kernel;
+    }
+
     /**
      * {@inheritDoc}
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(
-            new DoctrineObjectRepositoryPass('doctrine', 'doctrine'), PassConfig::TYPE_OPTIMIZE
-        );
+        $container->set('knp_rad_auto_registration.kernel', $this->kernel);
 
         $container->addCompilerPass(
-            new DoctrineObjectRepositoryPass('doctrine_odm', 'doctrine_mongodb'), PassConfig::TYPE_OPTIMIZE
+            new DefinitionBuilderActivationPass(),
+            PassConfig::TYPE_OPTIMIZE
         );
     }
 
