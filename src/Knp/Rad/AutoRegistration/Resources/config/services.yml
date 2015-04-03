@@ -54,6 +54,16 @@ services:
         tags:
             - { name: knp_rad_auto_registration.definition_builder }
 
+    knp_rad_auto_registration.definition_builder.security_voter_builder:
+        class: Knp\Rad\AutoRegistration\DefinitionBuilder\SecurityVoterBuilder
+        public: false
+        arguments:
+            - @knp_rad_auto_registration.kernel.kernel_wrapper
+            - @knp_rad_auto_registration.finder.bundle_finder
+            - @knp_rad_auto_registration.reflection.class_analyzer
+        tags:
+            - { name: knp_rad_auto_registration.definition_builder }
+
     knp_rad_auto_registration.finder.bundle_finder:
         class: Knp\Rad\AutoRegistration\Finder\BundleFinder
         public: false
