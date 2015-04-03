@@ -19,9 +19,11 @@ class BundleFinder
         $finder = Finder::create()->files()->name('*.php')->sortByName()->ignoreUnreadableDirs();
 
         foreach ($bundles as $bundle) {
-            $path = rtrim($bundle->getPath(), DIRECTORY_SEPARATOR);
+            $validDir = false;
+            $path     = rtrim($bundle->getPath(), DIRECTORY_SEPARATOR);
 
             if (true === empty($directory)) {
+                $validDir = true;
                 $finder->in($path);
                 continue;
             }
@@ -33,9 +35,14 @@ class BundleFinder
             foreach ($directory as $dir) {
                 $pathname = sprintf('%s%s%s', $path, DIRECTORY_SEPARATOR, trim($dir, DIRECTORY_SEPARATOR));
                 if (true === is_dir($pathname)) {
+                    $validDir = true;
                     $finder->in($pathname);
                 }
             }
+        }
+
+        if (!$validDir) {
+            return [];
         }
 
         $files = [];
