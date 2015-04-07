@@ -38,16 +38,20 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
         $definition = $definitions['Bundle\Entity\Class1Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
-        $definition->getFactoryService()->shouldReturn('doctrine');
-        $definition->getFactoryMethod()->shouldReturn('getRepository');
         $definition->getArguments()->shouldReturn(['Bundle\Entity\Class1']);
+        $factory = $definition->getFactory();
+        $factory = current($factory);
+        expect((string) current($factory))->toBe('doctrine');
+        expect(end($factory))->toBe('getRepository');
 
         $definition = $definitions['Bundle\Entity\Class3Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
-        $definition->getFactoryService()->shouldReturn('doctrine');
-        $definition->getFactoryMethod()->shouldReturn('getRepository');
         $definition->getArguments()->shouldReturn(['Bundle\Entity\Class3']);
+        $factory = $definition->getFactory();
+        $factory = current($factory);
+        expect((string) current($factory))->toBe('doctrine');
+        expect(end($factory))->toBe('getRepository');
 
         expect(array_key_exists('Bundle\Entity\Class2Repository', $definition))->toBe(false);
     }
