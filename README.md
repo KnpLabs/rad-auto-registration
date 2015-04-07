@@ -33,7 +33,7 @@ class AppKernel
 #Usages
 
 ##Doctrine repositories auto-registration
-Just activate `doctrine` (or `doctrine_mongodb` ou `doctrine_couchdb` depending of your needs) into your configuration.
+Just activate `doctrine` (or `doctrine_mongodb` ou `doctrine_couchdb` depending on your needs) into your configuration.
 
 ```yaml
 knp_rad_auto_registration:
