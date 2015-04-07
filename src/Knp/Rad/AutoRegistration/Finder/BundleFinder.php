@@ -17,7 +17,7 @@ class BundleFinder
     public function findClasses($bundles, $directory = '', $type = '')
     {
         $finder = Finder::create()->files()->name('*.php')->sortByName()->ignoreUnreadableDirs();
-        $found = false;
+        $found  = false;
 
         foreach ($bundles as $bundle) {
             $path = rtrim($bundle->getPath(), DIRECTORY_SEPARATOR);

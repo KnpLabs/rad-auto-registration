@@ -33,11 +33,11 @@ class AutoRegistrationBundle extends Bundle
         $container->set('knp_rad_auto_registration.kernel', $this->kernel);
 
         $container->addCompilerPass(new DefinitionBuilderActivationPass([
-            'doctrine', 'doctrine_mongodb', 'doctrine_couchdb'
+            'doctrine', 'doctrine_mongodb', 'doctrine_couchdb',
         ]), PassConfig::TYPE_OPTIMIZE);
 
         $container->addCompilerPass(new DefinitionBuilderActivationPass([
-            'form_type', 'form_type_extension'
+            'form_type', 'form_type_extension',
         ]), PassConfig::TYPE_BEFORE_OPTIMIZATION);
         $container->addCompilerPass(new FormPass());
     }
