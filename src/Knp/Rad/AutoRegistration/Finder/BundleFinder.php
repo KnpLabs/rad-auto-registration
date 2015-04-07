@@ -17,13 +17,13 @@ class BundleFinder
     public function findClasses($bundles, $directory = '', $type = '')
     {
         $finder = Finder::create()->files()->name('*.php')->sortByName()->ignoreUnreadableDirs();
+        $found = false;
 
         foreach ($bundles as $bundle) {
-            $validDir = false;
-            $path     = rtrim($bundle->getPath(), DIRECTORY_SEPARATOR);
+            $path = rtrim($bundle->getPath(), DIRECTORY_SEPARATOR);
 
             if (true === empty($directory)) {
-                $validDir = true;
+                $found = true;
                 $finder->in($path);
                 continue;
             }
@@ -35,13 +35,13 @@ class BundleFinder
             foreach ($directory as $dir) {
                 $pathname = sprintf('%s%s%s', $path, DIRECTORY_SEPARATOR, trim($dir, DIRECTORY_SEPARATOR));
                 if (true === is_dir($pathname)) {
-                    $validDir = true;
+                    $found = true;
                     $finder->in($pathname);
                 }
             }
         }
 
-        if (!$validDir) {
+        if (false === $found) {
             return [];
         }
 
