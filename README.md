@@ -83,6 +83,10 @@ knp_rad_auto_registration:
 
 Now all the voters are auto-registered.
 
+###Requirements
+
+Your security voters should be stored under `Security` sub-namespace.
+
 #Restrictions
 
 ##Autoloading
