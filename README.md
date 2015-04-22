@@ -19,7 +19,7 @@ class AppKernel
     {
         $bundles = array(
             //...
-            new Knp\Rad\AutoRegistration\Bundle\AutoRegistrationBundle($this), // !! Do not forgot to inject the kernel !!
+            new Knp\Rad\AutoRegistration\Bundle\AutoRegistrationBundle($this), // !! Do not forget to inject the kernel !!
             //...
         );
 
@@ -86,6 +86,21 @@ Now all the voters are auto-registered.
 ###Requirements
 
 Your security voters should be stored under `Security` sub-namespace.
+
+##Twig extensions
+Just activate `twig_extension` into your configuration.
+
+```yaml
+knp_rad_auto_registration:
+    enable:
+        twig_extension: ~
+```
+
+Now all Twig extensions are auto-registered.
+
+###Requirements
+
+Your Twig extensions should be stored under `Twig` or `Templating` sub-namespace.
 
 #Restrictions
 
