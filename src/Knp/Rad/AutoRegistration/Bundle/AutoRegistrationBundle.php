@@ -5,6 +5,7 @@ namespace Knp\Rad\AutoRegistration\Bundle;
 use Knp\Rad\AutoRegistration\DependencyInjection\AutoRegistrationExtension;
 use Knp\Rad\AutoRegistration\DependencyInjection\Compiler\DefinitionBuilderActivationPass;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\FormPass;
+use Symfony\Bundle\TwigBundle\DependencyInjection\Compiler\TwigEnvironmentPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -39,7 +40,9 @@ class AutoRegistrationBundle extends Bundle
         $container->addCompilerPass(new DefinitionBuilderActivationPass([
             'form_type', 'form_type_extension', 'security_voter', 'twig_extension',
         ]), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+
         $container->addCompilerPass(new FormPass());
+        $container->addCompilerPass(new TwigEnvironmentPass());
     }
 
     /**
