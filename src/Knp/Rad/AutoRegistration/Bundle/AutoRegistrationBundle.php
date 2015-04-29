@@ -37,7 +37,7 @@ class AutoRegistrationBundle extends Bundle
         ]), PassConfig::TYPE_OPTIMIZE);
 
         $container->addCompilerPass(new DefinitionBuilderActivationPass([
-            'form_type', 'form_type_extension',
+            'form_type', 'form_type_extension', 'security_voter', 'twig_extension',
         ]), PassConfig::TYPE_BEFORE_OPTIMIZATION);
         $container->addCompilerPass(new FormPass());
     }
