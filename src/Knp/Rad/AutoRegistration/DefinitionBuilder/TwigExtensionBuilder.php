@@ -3,8 +3,8 @@
 namespace Knp\Rad\AutoRegistration\DefinitionBuilder;
 
 use Knp\Rad\AutoRegistration\DefinitionBuilder;
-use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use Knp\Rad\AutoRegistration\Finder\BundleFinder;
+use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use Knp\Rad\AutoRegistration\Reflection\ClassAnalyzer;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -47,7 +47,7 @@ class TwigExtensionBuilder implements DefinitionBuilder
         $twigExtensions = $this->finder->findClasses(
             $this->kernel->getBundles(),
             ['Twig', 'Templating'],
-            'TwigExtension'
+            'Twig_Extension'
         );
 
         foreach ($twigExtensions as $twigExtension) {
