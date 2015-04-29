@@ -4,7 +4,7 @@ Auto register some common services
 
 [![Build Status](https://travis-ci.org/KnpLabs/rad-auto-registration.svg?branch=master)](https://travis-ci.org/KnpLabs/rad-auto-registration)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/KnpLabs/rad-auto-registration/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/KnpLabs/rad-auto-registration/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/knplabs/rad-auto-registration/v/stable.svg)](https://packagist.org/packages/knplabs/rad-auto-registration) [![Total Downloads](https://poser.pugx.org/knplabs/rad-auto-registration/downloads.svg)](https://packagist.org/packages/knplabs/rad-auto-registration) [![Latest Unstable Version](https://poser.pugx.org/knplabs/rad-auto-registration/v/unstable.svg)](https://packagist.org/packages/knplabs/rad-auto-registration) [![License](https://poser.pugx.org/knplabs/rad-auto-registration/license.svg)](https://packagist.org/packages/knplabs/rad-auto-registration)
+[![Latest Stable Version](https://poser.pugx.org/knplabs/rad-auto-registration/v/stable)](https://packagist.org/packages/knplabs/rad-auto-registration) [![Total Downloads](https://poser.pugx.org/knplabs/rad-auto-registration/downloads)](https://packagist.org/packages/knplabs/rad-auto-registration) [![Latest Unstable Version](https://poser.pugx.org/knplabs/rad-auto-registration/v/unstable)](https://packagist.org/packages/knplabs/rad-auto-registration) [![License](https://poser.pugx.org/knplabs/rad-auto-registration/license)](https://packagist.org/packages/knplabs/rad-auto-registration)
 
 #Installation
 
