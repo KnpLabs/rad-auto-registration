@@ -14,6 +14,7 @@ class Configuration implements ConfigurationInterface
             ->root('knp_rad_auto_registration')
             ->children()
                 ->arrayNode('enable')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('doctrine')
                             ->defaultFalse()
