@@ -8,6 +8,7 @@ use Knp\Rad\AutoRegistration\DefinitionBuilder;
 use Knp\Rad\AutoRegistration\Finder\BundleFinder;
 use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 class DoctrineObjectRepositoryBuilder implements DefinitionBuilder
 {
@@ -68,8 +69,7 @@ class DoctrineObjectRepositoryBuilder implements DefinitionBuilder
 
             $definitions[sprintf('%sRepository', $object)] = (new Definition())
                 ->setClass('Doctrine\Common\Persistence\ObjectRepository')
-                ->setFactoryService($this->name)
-                ->setFactoryMethod('getRepository')
+                ->setFactory([new Reference($this->name), 'getRepository'])
                 ->addArgument($object)
             ;
         }
