@@ -8,6 +8,7 @@ use Knp\Rad\AutoRegistration\Finder\BundleFinder;
 use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\Reference;
 
 class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
 {
@@ -38,15 +39,17 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
         $definition = $definitions['Bundle\Entity\Class1Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
-        $definition->getFactoryService()->shouldReturn('doctrine');
-        $definition->getFactoryMethod()->shouldReturn('getRepository');
+        $factory = $definition->getFactory();
+        expect(strval($factory[0]->getWrappedObject()))->toBe('doctrine');
+        $factory[1]->shouldReturn('getRepository');
         $definition->getArguments()->shouldReturn(['Bundle\Entity\Class1']);
 
         $definition = $definitions['Bundle\Entity\Class3Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
-        $definition->getFactoryService()->shouldReturn('doctrine');
-        $definition->getFactoryMethod()->shouldReturn('getRepository');
+        $factory = $definition->getFactory();
+        expect(strval($factory[0]->getWrappedObject()))->toBe('doctrine');
+        $factory[1]->shouldReturn('getRepository');
         $definition->getArguments()->shouldReturn(['Bundle\Entity\Class3']);
 
         expect(array_key_exists('Bundle\Entity\Class2Repository', $definition))->toBe(false);

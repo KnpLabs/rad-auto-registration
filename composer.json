@@ -9,15 +9,16 @@
         }
     ],
     "require": {
-        "doctrine/dbal": "~2.0",
+        "php": ">=5.4",
+        "doctrine/dbal": "~2.2",
         "doctrine/inflector": "~1.0",
         "psr/log": "~1.0",
-        "symfony/config": "~2.4",
-        "symfony/dependency-injection": "~2.4",
-        "symfony/framework-bundle": "~2.4",
-        "symfony/http-kernel": "~2.4",
-        "symfony/security-bundle": "~2.0",
-        "symfony/twig-bundle": "~2.4"
+        "symfony/config": "~2.8||~3.0",
+        "symfony/dependency-injection": "~2.8||~3.0",
+        "symfony/framework-bundle": "~2.8||~3.0",
+        "symfony/http-kernel": "~2.8||~3.0",
+        "symfony/security-bundle": "~2.8||~3.0",
+        "symfony/twig-bundle": "~2.8||~3.0"
     },
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0.0",

@@ -55,22 +55,20 @@ Now all repositories are auto-registred.
 
 Your doctrine entity (or documents) should be stored under `Entity`, `Document` or `Model` sub-namespace.
 
-##Form types and form type extensions
-Just activate `form_type` and/or `form_type_extension` into your configuration.
+##Form extensions
+Just activate `form_type_extension` into your configuration.
 
 ```yaml
 knp_rad_auto_registration:
     enable:
-        form_type: ~
         form_type_extension: ~
 ```
 
-Now all form types and form type extensions are auto-registred.
-
+Now all form type extensions are auto-registred.
 
 ###Requirements
 
-Your form types and form type extensions should be stored under `Form` sub-namespace.
+Your form type extensions should be stored under `Form` sub-namespace.
 
 ##Security voters
 Just activate `security_voter` into your configuration.

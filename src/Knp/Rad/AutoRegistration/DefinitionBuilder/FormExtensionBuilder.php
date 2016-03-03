@@ -58,7 +58,7 @@ class FormExtensionBuilder implements DefinitionBuilder
             $instance           = new $type();
             $definitions[$type] = (new Definition())
                 ->setClass($type)
-                ->addTag('form.type_extension', ['alias' => $instance->getExtendedType()])
+                ->addTag('form.type_extension', ['extended_type' => $instance->getExtendedType()])
             ;
         }
 
