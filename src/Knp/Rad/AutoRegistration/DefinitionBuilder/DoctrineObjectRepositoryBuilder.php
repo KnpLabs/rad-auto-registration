@@ -69,6 +69,7 @@ class DoctrineObjectRepositoryBuilder implements DefinitionBuilder
 
             $definitions[sprintf('%sRepository', $object)] = (new Definition())
                 ->setClass('Doctrine\Common\Persistence\ObjectRepository')
+                ->setPublic(false)
                 ->setFactory([new Reference($this->name), 'getRepository'])
                 ->addArgument($object)
             ;

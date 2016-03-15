@@ -57,6 +57,7 @@ class SecurityVoterBuilder implements DefinitionBuilder
 
             $definitions[$voter] = (new Definition())
                 ->setClass($voter)
+                ->setPublic(false)
                 ->addTag('security.voter')
             ;
         }

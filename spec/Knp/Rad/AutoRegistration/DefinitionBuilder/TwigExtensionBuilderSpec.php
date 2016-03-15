@@ -37,10 +37,14 @@ class TwigExtensionBuilderSpec extends ObjectBehavior
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension1'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension1');
+        $definition->isPublic()->shouldReturn(false);
+        $definition->hasTag('twig.extension')->shouldReturn(true);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3');
+        $definition->isPublic()->shouldReturn(false);
+        $definition->hasTag('twig.extension')->shouldReturn(true);
 
         expect(array_key_exists('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension2', $definition))->toBe(false);
     }

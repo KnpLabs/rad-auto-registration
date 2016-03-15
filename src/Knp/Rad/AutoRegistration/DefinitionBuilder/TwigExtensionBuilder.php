@@ -57,6 +57,7 @@ class TwigExtensionBuilder implements DefinitionBuilder
 
             $definitions[$twigExtension] = (new Definition())
                 ->setClass($twigExtension)
+                ->setPublic(false)
                 ->addTag('twig.extension')
             ;
         }
