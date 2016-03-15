@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleServiceNameGeneratorSpec extends ObjectBehavior
 {
-    public function let(KernelWrapper $kernel, BundleInterface $bundle1, BundleInterface $bundle2, ServiceNameGenerator $generator)
+    function let(KernelWrapper $kernel, BundleInterface $bundle1, BundleInterface $bundle2, ServiceNameGenerator $generator)
     {
         $kernel->getBundles()->willReturn([$bundle1, $bundle2]);
 
@@ -22,12 +22,12 @@ class BundleServiceNameGeneratorSpec extends ObjectBehavior
         $bundle2->getName()->willReturn('Bundle2');
     }
 
-    public function it_is_initializable()
+    function it_is_initializable()
     {
         $this->shouldHaveType('Knp\Rad\AutoRegistration\ServiceNameGenerator\BundleServiceNameGenerator');
     }
 
-    public function it_generates_bundle_based_on_service_names($generator)
+    function it_generates_bundle_based_on_service_names($generator)
     {
         $generator
             ->generateFromClassname('Bundle1\Form\Type\ProductType')
@@ -41,7 +41,7 @@ class BundleServiceNameGeneratorSpec extends ObjectBehavior
         ;
     }
 
-    public function it_generates_bundle_based_on_other_service_names($generator)
+    function it_generates_bundle_based_on_other_service_names($generator)
     {
         $generator
             ->generateFromClassname('Bundle2\Twig\ProductExtension')
@@ -55,7 +55,7 @@ class BundleServiceNameGeneratorSpec extends ObjectBehavior
         ;
     }
 
-    public function it_just_call_wrapped_generation_method($generator)
+    function it_just_call_wrapped_generation_method($generator)
     {
         $generator
             ->generateFromClassname('NameSpace\The\Class')

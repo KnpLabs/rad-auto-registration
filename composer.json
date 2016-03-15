@@ -23,6 +23,7 @@
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0.0",
         "knplabs/phpspec-welldone-extension": "dev-master@dev",
+        "pedrotroller/php-cs-custom-fixer": "~1.2.1",
         "phpspec/phpspec": "~2.4"
     },
     "autoload": {

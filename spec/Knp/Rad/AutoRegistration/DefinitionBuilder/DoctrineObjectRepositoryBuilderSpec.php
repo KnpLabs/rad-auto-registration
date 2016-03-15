@@ -8,11 +8,10 @@ use Knp\Rad\AutoRegistration\Finder\BundleFinder;
 use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Component\DependencyInjection\Reference;
 
 class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
 {
-    public function let(KernelWrapper $kernel, BundleFinder $finder, ManagerRegistry $doctrine, ObjectManager $om)
+    function let(KernelWrapper $kernel, BundleFinder $finder, ManagerRegistry $doctrine, ObjectManager $om)
     {
         $this->beConstructedWith($kernel, $finder, $doctrine);
 
@@ -27,12 +26,12 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
         ]);
     }
 
-    public function it_is_initializable()
+    function it_is_initializable()
     {
         $this->shouldHaveType('Knp\Rad\AutoRegistration\DefinitionBuilder\DoctrineObjectRepositoryBuilder');
     }
 
-    public function it_load_entities_definitions()
+    function it_load_entities_definitions()
     {
         $definitions = $this->buildDefinitions();
 

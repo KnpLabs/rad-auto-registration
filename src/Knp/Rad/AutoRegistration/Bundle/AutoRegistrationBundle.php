@@ -28,7 +28,7 @@ class AutoRegistrationBundle extends Bundle
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function build(ContainerBuilder $container)
     {
@@ -48,7 +48,7 @@ class AutoRegistrationBundle extends Bundle
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getContainerExtension()
     {

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class AutoRegistrationExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container)
     {
@@ -23,7 +23,7 @@ class AutoRegistrationExtension extends Extension
         $container->setParameter(sprintf('%s.configuration', $this->getAlias()), $config);
     }
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getAlias()
     {

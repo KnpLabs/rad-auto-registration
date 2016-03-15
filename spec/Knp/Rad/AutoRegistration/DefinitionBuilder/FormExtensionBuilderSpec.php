@@ -10,17 +10,17 @@ use Prophecy\Argument;
 
 class FormExtensionBuilderSpec extends ObjectBehavior
 {
-    public function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analizer)
+    function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analizer)
     {
         $this->beConstructedWith($kernel, $finder, $analizer);
     }
 
-    public function it_is_initializable()
+    function it_is_initializable()
     {
         $this->shouldHaveType('Knp\Rad\AutoRegistration\DefinitionBuilder\FormExtensionBuilder');
     }
 
-    public function it_creates_definitions_from_constructable_classes($finder, $analizer)
+    function it_creates_definitions_from_constructable_classes($finder, $analizer)
     {
         $finder->findClasses(Argument::cetera())->willReturn([
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension1',
