@@ -15,7 +15,7 @@ interface DefinitionBuilder
     public function getName();
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isActive();
 }

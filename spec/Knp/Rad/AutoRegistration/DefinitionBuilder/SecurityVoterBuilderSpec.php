@@ -10,17 +10,17 @@ use Prophecy\Argument;
 
 class SecurityVoterBuilderSpec extends ObjectBehavior
 {
-    public function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analyzer)
+    function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analyzer)
     {
         $this->beConstructedWith($kernel, $finder, $analyzer);
     }
 
-    public function it_is_initializable()
+    function it_is_initializable()
     {
         $this->shouldHaveType('Knp\Rad\AutoRegistration\DefinitionBuilder\SecurityVoterBuilder');
     }
 
-    public function it_creates_definitions_from_constructable_classes($finder, $analyzer)
+    function it_creates_definitions_from_constructable_classes($finder, $analyzer)
     {
         $finder->findClasses(Argument::cetera())->willReturn([
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1',
