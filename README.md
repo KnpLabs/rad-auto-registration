@@ -117,3 +117,7 @@ knp_rad_auto_registration:
         # ...
     bundles: [ App, ProductBundle ]
 ```
+
+#WARNING
+
+All auto-registered services are set as `private`, so it's impossible to get them by using `$container->get('service_name')`. If needed, create the service definition by yourself.
