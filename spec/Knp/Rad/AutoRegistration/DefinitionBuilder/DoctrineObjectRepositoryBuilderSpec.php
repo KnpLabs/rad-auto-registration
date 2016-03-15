@@ -38,6 +38,7 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
         $definition = $definitions['Bundle\Entity\Class1Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
+        $definition->isPublic()->shouldReturn(false);
         $factory = $definition->getFactory();
         expect(strval($factory[0]->getWrappedObject()))->toBe('doctrine');
         $factory[1]->shouldReturn('getRepository');
@@ -46,6 +47,7 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
         $definition = $definitions['Bundle\Entity\Class3Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('Doctrine\Common\Persistence\ObjectRepository');
+        $definition->isPublic()->shouldReturn(false);
         $factory = $definition->getFactory();
         expect(strval($factory[0]->getWrappedObject()))->toBe('doctrine');
         $factory[1]->shouldReturn('getRepository');

@@ -37,10 +37,14 @@ class SecurityVoterBuilderSpec extends ObjectBehavior
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1');
+        $definition->isPublic()->shouldReturn(false);
+        $definition->hasTag('security.voter')->shouldReturn(true);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
         $definition->getClass()->shouldReturn('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3');
+        $definition->isPublic()->shouldReturn(false);
+        $definition->hasTag('security.voter')->shouldReturn(true);
 
         expect(array_key_exists('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter2', $definition))->toBe(false);
     }
