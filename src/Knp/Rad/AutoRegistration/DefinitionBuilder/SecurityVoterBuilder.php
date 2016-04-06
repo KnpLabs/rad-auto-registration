@@ -51,7 +51,7 @@ class SecurityVoterBuilder implements DefinitionBuilder
         );
 
         foreach ($voters as $voter) {
-            if (true === $this->analyzer->needConstruction($voter)) {
+            if (false === $this->analyzer->canBeConstructed($voter)) {
                 continue;
             }
 

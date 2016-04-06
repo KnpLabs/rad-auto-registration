@@ -10,9 +10,9 @@ use Prophecy\Argument;
 
 class FormExtensionBuilderSpec extends ObjectBehavior
 {
-    function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analizer)
+    function let(KernelWrapper $kernel, BundleFinder $finder, ClassAnalyzer $analyser)
     {
-        $this->beConstructedWith($kernel, $finder, $analizer);
+        $this->beConstructedWith($kernel, $finder, $analyser);
     }
 
     function it_is_initializable()
@@ -20,7 +20,7 @@ class FormExtensionBuilderSpec extends ObjectBehavior
         $this->shouldHaveType('Knp\Rad\AutoRegistration\DefinitionBuilder\FormExtensionBuilder');
     }
 
-    function it_creates_definitions_from_constructable_classes($finder, $analizer)
+    function it_creates_definitions_from_constructable_classes($finder, $analyser)
     {
         $finder->findClasses(Argument::cetera())->willReturn([
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension1',
@@ -28,9 +28,9 @@ class FormExtensionBuilderSpec extends ObjectBehavior
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension3',
         ]);
 
-        $analizer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension1')->willReturn(false);
-        $analizer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension2')->willReturn(true);
-        $analizer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension3')->willReturn(false);
+        $analyser->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension1')->willReturn(true);
+        $analyser->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension2')->willReturn(false);
+        $analyser->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension3')->willReturn(true);
 
         $definitions = $this->buildDefinitions();
 

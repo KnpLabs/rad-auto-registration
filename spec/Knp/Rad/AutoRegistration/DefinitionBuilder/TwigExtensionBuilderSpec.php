@@ -28,9 +28,9 @@ class TwigExtensionBuilderSpec extends ObjectBehavior
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3',
         ]);
 
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension1')->willReturn(false);
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension2')->willReturn(true);
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3')->willReturn(false);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension1')->willReturn(true);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension2')->willReturn(false);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3')->willReturn(true);
 
         $definitions = $this->buildDefinitions();
 

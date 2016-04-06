@@ -2,27 +2,47 @@
 
 namespace Knp\Rad\AutoRegistration\Reflection;
 
+use ReflectionClass;
+
 class ClassAnalyzer
 {
-    public function needConstruction($class)
+    /**
+     * @param string $class
+     *
+     * @return bool Return TRUE if class does not have constructor (or without required parameter) and if class is not abstract, FALSE else
+     */
+    public function canBeConstructed($class)
     {
         $class = $this->buildReflection($class);
 
-        if (null === $constuctor = $class->getConstructor()) {
+        if ($class->isInterface()) {
             return false;
         }
 
-        return 0 < $constuctor->getNumberOfRequiredParameters();
+        if ($class->isAbstract()) {
+            return false;
+        }
+
+        if (null === $constuctor = $class->getConstructor()) {
+            return true;
+        }
+
+        return 0 === $constuctor->getNumberOfRequiredParameters();
     }
 
+    /**
+     * @param string|ReflectionClass $class
+     *
+     * @return ReflectionClass|null
+     */
     private function buildReflection($class)
     {
-        if (true === $class instanceof \ReflectionClass) {
+        if ($class instanceof ReflectionClass) {
             return $class;
         }
 
-        if (true === class_exists($class)) {
-            return new \ReflectionClass($class);
+        if (class_exists($class)) {
+            return new ReflectionClass($class);
         }
 
         return;
