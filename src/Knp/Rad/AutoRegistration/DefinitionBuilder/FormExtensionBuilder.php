@@ -51,7 +51,7 @@ class FormExtensionBuilder implements DefinitionBuilder
         );
 
         foreach ($types as $type) {
-            if (true === $this->analyzer->needConstruction($type)) {
+            if (false === $this->analyzer->canBeConstructed($type)) {
                 continue;
             }
 

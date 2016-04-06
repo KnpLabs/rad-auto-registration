@@ -51,7 +51,7 @@ class TwigExtensionBuilder implements DefinitionBuilder
         );
 
         foreach ($twigExtensions as $twigExtension) {
-            if (true === $this->analyzer->needConstruction($twigExtension)) {
+            if (false === $this->analyzer->canBeConstructed($twigExtension)) {
                 continue;
             }
 

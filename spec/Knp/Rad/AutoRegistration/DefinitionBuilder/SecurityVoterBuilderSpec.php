@@ -28,9 +28,9 @@ class SecurityVoterBuilderSpec extends ObjectBehavior
             'spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3',
         ]);
 
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1')->willReturn(false);
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter2')->willReturn(true);
-        $analyzer->needConstruction('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3')->willReturn(false);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1')->willReturn(true);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter2')->willReturn(false);
+        $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3')->willReturn(true);
 
         $definitions = $this->buildDefinitions();
 
