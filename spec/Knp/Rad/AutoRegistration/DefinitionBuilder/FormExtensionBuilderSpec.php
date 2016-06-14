@@ -32,7 +32,7 @@ class FormExtensionBuilderSpec extends ObjectBehavior
         $analyser->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension2')->willReturn(false);
         $analyser->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension3')->willReturn(true);
 
-        $definitions = $this->buildDefinitions();
+        $definitions = $this->buildDefinitions(['public' => false]);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Extension1'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');

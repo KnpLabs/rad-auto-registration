@@ -2,13 +2,14 @@
 
 namespace Knp\Rad\AutoRegistration\DefinitionBuilder;
 
+use Doctrine\Common\Inflector\Inflector;
 use Knp\Rad\AutoRegistration\DefinitionBuilder;
 use Knp\Rad\AutoRegistration\Finder\BundleFinder;
 use Knp\Rad\AutoRegistration\Kernel\KernelWrapper;
 use Knp\Rad\AutoRegistration\Reflection\ClassAnalyzer;
 use Symfony\Component\DependencyInjection\Definition;
 
-class TwigExtensionBuilder implements DefinitionBuilder
+class ConstraintValidatorBuilder implements DefinitionBuilder
 {
     /**
      * @var KernelWrapper
@@ -46,21 +47,21 @@ class TwigExtensionBuilder implements DefinitionBuilder
 
         $definitions = [];
 
-        $twigExtensions = $this->finder->findClasses(
+        $validators = $this->finder->findClasses(
             $this->kernel->getBundles(),
-            ['Twig', 'Templating'],
-            'Twig_Extension'
+            ['Validator', 'Validation'],
+            'Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface'
         );
 
-        foreach ($twigExtensions as $twigExtension) {
-            if (false === $this->analyzer->canBeConstructed($twigExtension)) {
+        foreach ($validators as $validator) {
+            if (false === $this->analyzer->canBeConstructed($validator)) {
                 continue;
             }
 
-            $definitions[$twigExtension] = (new Definition())
-                ->setClass($twigExtension)
+            $definitions[$validator] = (new Definition())
+                ->setClass($validator)
                 ->setPublic($config['public'])
-                ->addTag('twig.extension')
+                ->addTag('validator.constraint_validator', ['alias_name' => $this->buildAlias($validator)])
             ;
         }
 
@@ -72,7 +73,7 @@ class TwigExtensionBuilder implements DefinitionBuilder
      */
     public function getName()
     {
-        return 'twig_extension';
+        return 'constraint_validator';
     }
 
     /**
@@ -81,5 +82,26 @@ class TwigExtensionBuilder implements DefinitionBuilder
     public function isActive()
     {
         return true;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return string
+     */
+    private function buildAlias($class)
+    {
+        $parts     = explode('\\', $class);
+        $shortName = end($parts);
+
+        if (false === strpos($shortName, 'Validator')) {
+            return Inflector::tableize($shortName);
+        }
+
+        if ('Validator' !== substr($shortName, -9)) {
+            return Inflector::tableize($shortName);
+        }
+
+        return Inflector::tableize(substr($shortName, 0, -9));
     }
 }

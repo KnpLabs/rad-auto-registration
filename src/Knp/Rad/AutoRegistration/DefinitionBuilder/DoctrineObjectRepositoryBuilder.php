@@ -49,8 +49,10 @@ class DoctrineObjectRepositoryBuilder implements DefinitionBuilder
     /**
      * {@inheritdoc}
      */
-    public function buildDefinitions()
+    public function buildDefinitions(array $config)
     {
+        $config = array_merge(['public' => false], $config);
+
         $definitions = [];
 
         $objects = $this->finder->findClasses(
@@ -69,7 +71,7 @@ class DoctrineObjectRepositoryBuilder implements DefinitionBuilder
 
             $definitions[sprintf('%sRepository', $object)] = (new Definition())
                 ->setClass('Doctrine\Common\Persistence\ObjectRepository')
-                ->setPublic(false)
+                ->setPublic($config['public'])
                 ->setFactory([new Reference($this->name), 'getRepository'])
                 ->addArgument($object)
             ;

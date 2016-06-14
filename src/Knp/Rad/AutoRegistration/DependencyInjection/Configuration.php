@@ -2,46 +2,37 @@
 
 namespace Knp\Rad\AutoRegistration\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getConfigTreeBuilder()
     {
+        $builders = [
+            'constraint_validator',
+            'doctrine',
+            'doctrine_mongodb',
+            'form_type_extension',
+            'security_voter',
+            'twig_extension',
+        ];
+
+        $nodes = new ArrayNodeDefinition('enable');
+
+        foreach ($builders as $builder) {
+            $nodes->children()->append($this->buildDefinitionBuilderNode($builder));
+        }
+
         $builder = new TreeBuilder();
         $builder
             ->root('knp_rad_auto_registration')
             ->children()
-                ->arrayNode('enable')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('doctrine')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                        ->booleanNode('doctrine_mongodb')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                        ->booleanNode('doctrine_couchdb')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                        ->booleanNode('form_type_extension')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                        ->booleanNode('security_voter')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                        ->booleanNode('twig_extension')
-                            ->defaultFalse()
-                            ->treatNullLike(true)
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($nodes)
                 ->arrayNode('bundles')
                     ->prototype('scalar')->end()
                     ->defaultValue([])
@@ -50,5 +41,26 @@ class Configuration implements ConfigurationInterface
         ;
 
         return $builder;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return ArrayNodeDefinition
+     */
+    private function buildDefinitionBuilderNode($name)
+    {
+        $node = new ArrayNodeDefinition($name);
+
+        $node
+            ->children()
+                ->booleanNode('public')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+            ->end()
+        ;
+
+        return $node;
     }
 }
