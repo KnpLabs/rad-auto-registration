@@ -33,6 +33,7 @@ class AppKernel
 #Usages
 
 ##Doctrine repositories auto-registration
+
 Just activate `doctrine` (or `doctrine_mongodb` ou `doctrine_couchdb` depending on your needs) into your configuration.
 
 ```yaml
@@ -55,7 +56,24 @@ Now all repositories are auto-registred.
 
 Your doctrine entity (or documents) should be stored under `Entity`, `Document` or `Model` sub-namespace.
 
+##Constraint validators
+
+Just activate `constraint_validator` into your configuration.
+
+```yaml
+knp_rad_auto_registration:
+    enable:
+        constraint_validator: ~
+```
+
+Now all custom constaint validators are auto-registered.
+
+###Requirements
+
+Your constraint validators should be stored under `Validation` or `Validator` sub-namespace.
+
 ##Form extensions
+
 Just activate `form_type_extension` into your configuration.
 
 ```yaml
@@ -71,6 +89,7 @@ Now all form type extensions are auto-registred.
 Your form type extensions should be stored under `Form` sub-namespace.
 
 ##Security voters
+
 Just activate `security_voter` into your configuration.
 
 ```yaml
@@ -86,6 +105,7 @@ Now all the voters are auto-registered.
 Your security voters should be stored under `Security` sub-namespace.
 
 ##Twig extensions
+
 Just activate `twig_extension` into your configuration.
 
 ```yaml
