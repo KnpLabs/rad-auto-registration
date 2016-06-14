@@ -40,8 +40,10 @@ class SecurityVoterBuilder implements DefinitionBuilder
     /**
      * {@inheritdoc}
      */
-    public function buildDefinitions()
+    public function buildDefinitions(array $config)
     {
+        $config = array_merge(['public' => false], $config);
+
         $definitions = [];
 
         $voters = $this->finder->findClasses(
@@ -57,7 +59,7 @@ class SecurityVoterBuilder implements DefinitionBuilder
 
             $definitions[$voter] = (new Definition())
                 ->setClass($voter)
-                ->setPublic(false)
+                ->setPublic($config['public'])
                 ->addTag('security.voter')
             ;
         }

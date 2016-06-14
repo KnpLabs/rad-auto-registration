@@ -5,9 +5,11 @@ namespace Knp\Rad\AutoRegistration;
 interface DefinitionBuilder
 {
     /**
+     * @param array $config
+     *
      * @return Symfony\Component\DependencyInjection\Definition[]
      */
-    public function buildDefinitions();
+    public function buildDefinitions(array $config);
 
     /**
      * @return string

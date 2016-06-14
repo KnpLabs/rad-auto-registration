@@ -42,11 +42,11 @@ class DefinitionBuilderActivationPass implements CompilerPassInterface
                 continue;
             }
 
-            if (false === $enable[$builder->getName()]) {
+            if (false === array_key_exists($builder->getName(), $enable)) {
                 continue;
             }
 
-            $definitions = $builder->buildDefinitions();
+            $definitions = $builder->buildDefinitions($enable[$builder->getName()]);
 
             foreach ($definitions as $class => $definition) {
                 $serviceId = $generator->generateFromClassname($class);

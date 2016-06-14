@@ -32,7 +32,7 @@ class SecurityVoterBuilderSpec extends ObjectBehavior
         $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter2')->willReturn(false);
         $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter3')->willReturn(true);
 
-        $definitions = $this->buildDefinitions();
+        $definitions = $this->buildDefinitions(['public' => false]);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Voter1'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');

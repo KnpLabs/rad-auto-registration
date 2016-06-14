@@ -32,7 +32,7 @@ class TwigExtensionBuilderSpec extends ObjectBehavior
         $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension2')->willReturn(false);
         $analyzer->canBeConstructed('spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension3')->willReturn(true);
 
-        $definitions = $this->buildDefinitions();
+        $definitions = $this->buildDefinitions(['public' => false]);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\TwigExtension1'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');
