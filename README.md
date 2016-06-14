@@ -120,6 +120,23 @@ Now all Twig extensions are auto-registered.
 
 Your Twig extensions should be stored under `Twig` or `Templating` sub-namespace.
 
+##Public/Private services
+
+By default, all autoregistered services are marked as `private` (`public: false`). You can overide this behavior by setting the `public` parameter to `true`.
+
+Example:
+
+```yaml
+knp_rad_auto_registration:
+    enable:
+        doctrine:
+            public: true
+        doctrine_mongodb:
+            public: false
+        doctrine_couchdb:
+            public: false
+```
+
 #Restrictions
 
 ##Autoloading

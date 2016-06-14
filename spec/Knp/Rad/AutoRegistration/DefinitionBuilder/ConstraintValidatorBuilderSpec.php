@@ -41,7 +41,7 @@ class ConstraintValidatorBuilderSpec extends ObjectBehavior
             ->willReturn(true)
         ;
 
-        $definitions = $this->buildDefinitions();
+        $definitions = $this->buildDefinitions(['public' => false]);
 
         $definition = $definitions['spec\Knp\Rad\AutoRegistration\DefinitionBuilder\Const1Validator'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');

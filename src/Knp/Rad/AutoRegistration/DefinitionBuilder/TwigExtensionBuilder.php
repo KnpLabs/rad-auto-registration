@@ -40,8 +40,10 @@ class TwigExtensionBuilder implements DefinitionBuilder
     /**
      * {@inheritdoc}
      */
-    public function buildDefinitions()
+    public function buildDefinitions(array $config)
     {
+        $config = array_merge(['public' => false], $config);
+
         $definitions = [];
 
         $twigExtensions = $this->finder->findClasses(
@@ -57,7 +59,7 @@ class TwigExtensionBuilder implements DefinitionBuilder
 
             $definitions[$twigExtension] = (new Definition())
                 ->setClass($twigExtension)
-                ->setPublic(false)
+                ->setPublic($config['public'])
                 ->addTag('twig.extension')
             ;
         }

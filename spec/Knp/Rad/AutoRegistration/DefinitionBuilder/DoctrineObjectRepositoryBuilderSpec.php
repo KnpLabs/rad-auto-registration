@@ -33,7 +33,7 @@ class DoctrineObjectRepositoryBuilderSpec extends ObjectBehavior
 
     function it_load_entities_definitions()
     {
-        $definitions = $this->buildDefinitions();
+        $definitions = $this->buildDefinitions(['public' => false]);
 
         $definition = $definitions['Bundle\Entity\Class1Repository'];
         $definition->shouldHaveType('Symfony\Component\DependencyInjection\Definition');

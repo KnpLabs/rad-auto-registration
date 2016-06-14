@@ -41,8 +41,10 @@ class ConstraintValidatorBuilder implements DefinitionBuilder
     /**
      * {@inheritdoc}
      */
-    public function buildDefinitions()
+    public function buildDefinitions(array $config)
     {
+        $config = array_merge(['public' => false], $config);
+
         $definitions = [];
 
         $validators = $this->finder->findClasses(
@@ -58,7 +60,7 @@ class ConstraintValidatorBuilder implements DefinitionBuilder
 
             $definitions[$validator] = (new Definition())
                 ->setClass($validator)
-                ->setPublic(false)
+                ->setPublic($config['public'])
                 ->addTag('validator.constraint_validator', ['alias_name' => $this->buildAlias($validator)])
             ;
         }
