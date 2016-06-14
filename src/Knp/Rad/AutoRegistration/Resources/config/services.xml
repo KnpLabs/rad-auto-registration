@@ -7,6 +7,13 @@
 
   <services>
 
+    <service id="knp_rad_auto_registration.definition_builder.constraint_validator_builder" class="Knp\Rad\AutoRegistration\DefinitionBuilder\ConstraintValidatorBuilder" public="false">
+      <tag name="knp_rad_auto_registration.definition_builder"/>
+      <argument type="service" id="knp_rad_auto_registration.kernel.kernel_wrapper"/>
+      <argument type="service" id="knp_rad_auto_registration.finder.bundle_finder"/>
+      <argument type="service" id="knp_rad_auto_registration.reflection.class_analyzer"/>
+    </service>
+
     <service id="knp_rad_auto_registration.definition_builder.doctrine_object_repository_builder" class="Knp\Rad\AutoRegistration\DefinitionBuilder\DoctrineObjectRepositoryBuilder" public="false">
       <tag name="knp_rad_auto_registration.definition_builder"/>
       <argument type="service" id="knp_rad_auto_registration.kernel.kernel_wrapper"/>
