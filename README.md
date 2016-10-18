@@ -9,7 +9,7 @@ Auto register some common services
 #Installation
 
 ```bash
-composer require knplabs/rad-auto-registration:~2.0
+composer require knplabs/rad-auto-registration
 ```
 
 ```php
