@@ -42,8 +42,6 @@ class FormExtensionBuilder implements DefinitionBuilder
      */
     public function buildDefinitions(array $config)
     {
-        $config = array_merge(['public' => false], $config);
-
         $definitions = [];
 
         $types = $this->finder->findClasses(
@@ -60,7 +58,7 @@ class FormExtensionBuilder implements DefinitionBuilder
             $instance           = new $type();
             $definitions[$type] = (new Definition())
                 ->setClass($type)
-                ->setPublic($config['public'])
+                ->setPublic(true)
                 ->addTag('form.type_extension', ['extended_type' => $instance->getExtendedType()])
             ;
         }
