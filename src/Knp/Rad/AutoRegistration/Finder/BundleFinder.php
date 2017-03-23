@@ -60,13 +60,17 @@ class BundleFinder
             }
         }
 
-        $classes = array_filter($classes, function ($e) { return class_exists($e); });
+        $classes = array_filter($classes, function ($e) {
+            return class_exists($e);
+        });
 
         if (false === empty($type)) {
             if (false === (class_exists($type) || interface_exists($type))) {
                 throw new \InvalidArgumentException(sprintf('Class or interface "%s" unknown', $type));
             }
-            $classes = array_filter($classes, function ($e) use ($type) { return is_subclass_of($e, $type); });
+            $classes = array_filter($classes, function ($e) use ($type) {
+                return is_subclass_of($e, $type);
+            });
         }
 
         return $classes;
