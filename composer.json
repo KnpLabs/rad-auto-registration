@@ -18,7 +18,8 @@
         "symfony/framework-bundle": "~2.8||~3.0",
         "symfony/http-kernel": "~2.8||~3.0",
         "symfony/security-bundle": "~2.8||~3.0",
-        "symfony/twig-bundle": "~2.8||~3.0"
+        "symfony/twig-bundle": "~2.8||~3.0",
+        "twig/twig": "~1"
     },
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0.0",
