@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": "~7.0",
         "doctrine/dbal": "~2.2",
         "doctrine/inflector": "~1.0",
         "psr/log": "~1.0",
@@ -34,10 +34,5 @@
     },
     "config": {
         "bin-dir": "bin"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.2.x-dev"
-        }
     }
 }
