@@ -13,16 +13,16 @@
         "doctrine/dbal": "~2.2",
         "doctrine/inflector": "~1.0",
         "psr/log": "~1.0",
-        "symfony/config": "~2.8||~3.0",
-        "symfony/dependency-injection": "~2.8||~3.0",
-        "symfony/framework-bundle": "~2.8||~3.0",
-        "symfony/http-kernel": "~2.8||~3.0",
-        "symfony/security-bundle": "~2.8||~3.0",
-        "symfony/twig-bundle": "~2.8||~3.0",
+        "symfony/config": "~2.8||<=3.2",
+        "symfony/dependency-injection": "~2.8||<=3.2",
+        "symfony/framework-bundle": "~2.8||<=3.2",
+        "symfony/http-kernel": "~2.8||<=3.2",
+        "symfony/security-bundle": "~2.8||<=3.2",
+        "symfony/twig-bundle": "~2.8||<=3.2",
         "twig/twig": "~1"
     },
     "require-dev": {
-        "bossa/phpspec2-expect": "~1.0.0",
+        "bossa/phpspec2-expect": "~1.0.0",||
         "knplabs/phpspec-welldone-extension": "dev-master@dev",
         "pedrotroller/php-cs-custom-fixer": "~1.2.1",
         "phpspec/phpspec": "~2.4"
