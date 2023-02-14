@@ -43,7 +43,6 @@ class AutoRegistrationBundle extends Bundle
         ]), PassConfig::TYPE_BEFORE_OPTIMIZATION);
 
         $container->addCompilerPass(new FormPass());
-        $container->addCompilerPass(new TwigEnvironmentPass());
         $container->addCompilerPass(new AddSecurityVotersPass());
     }
 
